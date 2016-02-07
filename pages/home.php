@@ -13,7 +13,7 @@ $nbarticles_parpage = 3;/* 3 articles par page */
 $offset = Pagination::paginer($nbarticles_parpage,$nbarticles);
 
 /* méthode pour lister tous les articles en fonction d'un début et d'un nombre limité */
-    $articles = $manager->lister_tous($offset,$nbarticles_parpage);
+$articles = $manager->lister_tous($offset,$nbarticles_parpage);
 
 /* Affichage des données */
 ?> <h1>Derniers articles publiés </h1> <hr> <?php
@@ -22,14 +22,14 @@ foreach($articles as $article)
     ?>
     <div class="container">
         <h2>
-            <?php echo $article['titre']; ?> <br />
+            <a href="<?= $article->geturl()?>"> <?= $article->gettitre(); ?> </a> <br />
          </h2>
-        <p><em>publié le <?php echo $article['date_pub']; ?></em></p>
+        <p><em>publié le <?php echo $article->getdate_pub(); ?></em></p>
 
         <p>
-            <?php echo $article['resume']; ?>
+            <?php echo $article->getresume(); ?>
             <br />
-            <p><a class="btn btn-default" href="../public/index.php?p=article&article=<?php echo $article['id']?>" role="button">Voir la suite et les commentaires &raquo;</a></p>
+            <p><a class="btn btn-default" href="<?= $article->geturl()?>" role="button">Voir la suite et les commentaires &raquo;</a></p>
         </p>
     </div>
     <hr>

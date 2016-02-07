@@ -20,15 +20,19 @@ class Article_manager {
 
     public function lister_tous($offset, $limit)
     {
-        $offset = (int) $offset;
-        $limit = (int) $limit;
-        $q = $this->_db->prepare('SELECT id, titre, resume, contenu, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles ORDER BY date_pub DESC LIMIT :offset, :limit');
+        $articles = [];
+        $offset = (int)$offset;
+        $limit = (int)$limit;
+        $q = $this->_db->prepare('SELECT id, titre, resume, contenu, auteur_id, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles ORDER BY date_pub DESC LIMIT :offset, :limit');
         $q->bindParam(':offset', $offset, PDO::PARAM_INT);
         $q->bindParam(':limit', $limit, PDO::PARAM_INT);
         $q->execute();
-        $articles = $q->fetchAll();
+        while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+            $articles[] = new Article($donnees);
+        }
         return $articles;
     }
+
 
     public function lister_un($id)
     {
@@ -37,7 +41,7 @@ class Article_manager {
         $q->bindParam(':id', $id, PDO::PARAM_INT);
         $q->execute();
         $article = $q->fetch(PDO::FETCH_ASSOC);
-        return $article;
+        return new Article($article);
     }
 
     public function compter()

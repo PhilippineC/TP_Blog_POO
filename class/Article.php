@@ -9,13 +9,20 @@ class Article {
     protected $date_pub;
 
     public function __construct(array $donnees) {
-        $this->getid() = $donnees['id'];
-        $this->gettitre() = $donnees['titre'];
-        $this->getresume = $donnees['resume'];
-        $this->getcontenu() = $donnees['contenu'];
-        $this->getauteur_id() = $donnees['auteur_id'];
-        $this->getdate_pub() = $donnees['date_pub'];
+        $this->hydrate($donnees);
+    }
 
+    public function hydrate(array $donnees)
+    {
+        foreach ($donnees as $key => $value) {
+            // On récupère le nom du setter correspondant à l'attribut.
+            $method = 'set' . ucfirst($key);
+            // Si le setter correspondant existe.
+            if (method_exists($this, $method)) {
+                // On appelle le setter.
+                $this->$method($value);
+            }
+        }
     }
 
     //construction des getters
@@ -28,7 +35,7 @@ class Article {
 
     //construction des setters
     public function setId($id) {
-        $this->_id = (int) $id;
+        $this->id = (int) $id;
     }
     public function setTitre($titre) {
         if (is_string($titre))
@@ -45,6 +52,7 @@ class Article {
     public function setContenu($contenu) {
         if (is_string($contenu))
         {
+            $contenu = nl2br($contenu);
             $this->contenu = $contenu;
         }
     }
@@ -56,11 +64,10 @@ class Article {
         $this->date_pub = $date_pub;
     }
 
-/* autres méthodes
     public function geturl() {
-        return '../public/index.php?p=article&article=' . $this->id;
+        return '../public/index.php?p=article&id=' . $this->id;
     }
-*/
+
 
 
 }

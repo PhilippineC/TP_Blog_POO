@@ -8,11 +8,14 @@ class Commentaire_manager {
 
     public function lister_tous($article_id)
     {
+        $commentaires = [];
         $article_id = (int) $article_id;
         $q = $this->_db->prepare('SELECT id, article_id, pseudo, email, contenu, DATE_FORMAT(date_commentaire, \'%d/%m/%Y à %Hh%imin%ss\') AS date_com FROM commentaires WHERE article_id = :article_id ORDER BY date_com DESC');
         $q->bindParam(':article_id', $article_id, PDO::PARAM_INT);
         $q->execute();
-        $commentaires = $q->fetchAll();
+        while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+            $commentaires[] = new Commentaire($donnees);
+        }
         return $commentaires;
     }
 

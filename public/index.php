@@ -16,7 +16,7 @@ $db = Database::getPDO();
 
 ob_start();
 if ($p === 'article') {
-    require '../pages/article.php';
+    require '../pages/single.php';
 } elseif ($p === 'page3') {
     require '../pages/page3.php';
 }
