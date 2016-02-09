@@ -13,7 +13,7 @@ $nbarticles_parpage = 3;/* 3 articles par page */
 $offset = Pagination::paginer($nbarticles_parpage,$nbarticles);
 
 /* méthode pour lister tous les articles en fonction d'un début et d'un nombre limité */
-$articles = $manager->lister_tous($offset,$nbarticles_parpage);
+$articles = $manager->lister_tous_ol($offset,$nbarticles_parpage);
 
 /* Affichage des données */
 ?> <h1>Derniers articles publiés </h1> <hr> <?php

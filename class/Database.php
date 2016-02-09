@@ -5,7 +5,7 @@ class Database
 
     const HOST = 'mysql:host=localhost;dbname=blog_poo';
     const USER = 'root';
-    const PASS = 'Philou1984';
+    const PASS = '';
     /* const PASS = '';*/
     private static $pdo;
 

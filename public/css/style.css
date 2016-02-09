@@ -1,3 +1,18 @@
 .jumbotron {
     padding-bottom :20px;
 }
+.pager > .active > a,
+.pager > .active > span,
+.pager > .active > a:hover,
+.pager > .active > span:hover,
+.pager > .active > a:focus,
+.pager > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+#ajout_article {
+    margin-top: 20px;
+}

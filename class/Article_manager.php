@@ -18,7 +18,7 @@ class Article_manager {
         $q->execute();
     }
 
-    public function lister_tous($offset, $limit)
+    public function lister_tous_ol($offset, $limit)
     {
         $articles = [];
         $offset = (int)$offset;
@@ -26,6 +26,17 @@ class Article_manager {
         $q = $this->_db->prepare('SELECT id, titre, resume, contenu, auteur_id, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles ORDER BY date_pub DESC LIMIT :offset, :limit');
         $q->bindParam(':offset', $offset, PDO::PARAM_INT);
         $q->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $q->execute();
+        while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+            $articles[] = new Article($donnees);
+        }
+        return $articles;
+    }
+
+    public function lister_tous()
+    {
+        $articles = [];
+        $q = $this->_db->prepare('SELECT id, titre, resume, contenu, auteur_id, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles ORDER BY date_pub DESC');
         $q->execute();
         while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
             $articles[] = new Article($donnees);

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../class/Autoloader.php';
 Autoloader::register();
 
@@ -17,8 +18,11 @@ $db = Database::getPDO();
 ob_start();
 if ($p === 'article') {
     require '../pages/single.php';
-} elseif ($p === 'page3') {
-    require '../pages/page3.php';
+} elseif ($p === 'connexion') {
+    require '../pages/connexion.php';
+}
+elseif ($p === 'admin') {
+    require '../pages/admin.php';
 }
 else {
     require '../pages/home.php';
