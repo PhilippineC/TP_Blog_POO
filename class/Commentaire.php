@@ -7,6 +7,7 @@ class Commentaire {
     protected $email;
     protected $contenu;
     protected $date_com;
+    protected $valide;
 
     public function __construct(array $donnees) {
         $this->hydrate($donnees);
@@ -32,6 +33,7 @@ class Commentaire {
     public function getemail() { return $this->email;}
     public function getcontenu() { return $this->contenu;}
     public function getdate_com() { return $this->date_com;}
+    public function getvalide() { return $this->valide;}
 
     //construction des setters
     public function setId($id) {
@@ -61,6 +63,9 @@ class Commentaire {
     }
     public function setDate_com($date_com) {
         $this->date_com = $date_com;
+    }
+    public function setValide($valide) {
+        $this->valide = (int) $valide;
     }
 
 

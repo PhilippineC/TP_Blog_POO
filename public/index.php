@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once '../fonction/get_page.php';
 require '../class/Autoloader.php';
 Autoloader::register();
 
@@ -16,18 +17,7 @@ if (isset($_GET['p'])) {
 $db = Database::getPDO();
 
 ob_start();
-if ($p === 'article') {
-    require '../pages/single.php';
-} elseif ($p === 'connexion') {
-    require '../pages/connexion.php';
-}
-elseif ($p === 'admin') {
-    require '../pages/admin.php';
-}
-else {
-    require '../pages/home.php';
-}
-
+require get_page($p); /*selection de la page en fonction de la vartiable $p */
 $content = ob_get_clean();
 
 require '../pages/templates/default.php';

@@ -23,7 +23,7 @@ class Article_manager {
         $articles = [];
         $offset = (int)$offset;
         $limit = (int)$limit;
-        $q = $this->_db->prepare('SELECT id, titre, resume, contenu, auteur_id, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles ORDER BY date_pub DESC LIMIT :offset, :limit');
+        $q = $this->_db->prepare('SELECT id, titre, resume, contenu, auteur_id, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles ORDER BY date_publication DESC LIMIT :offset, :limit');
         $q->bindParam(':offset', $offset, PDO::PARAM_INT);
         $q->bindParam(':limit', $limit, PDO::PARAM_INT);
         $q->execute();
@@ -33,10 +33,11 @@ class Article_manager {
         return $articles;
     }
 
-    public function lister_tous()
+    public function lister_tous($auteur_id)
     {
         $articles = [];
-        $q = $this->_db->prepare('SELECT id, titre, resume, contenu, auteur_id, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles ORDER BY date_pub DESC');
+        $q = $this->_db->prepare('SELECT id, titre, resume, contenu, auteur_id, DATE_FORMAT(date_publication, \'%d/%m/%Y à %Hh%imin%ss\') AS date_pub FROM articles WHERE auteur_id = :auteur_id ORDER BY date_publication DESC');
+        $q->bindParam(':auteur_id', $auteur_id, PDO::PARAM_INT);
         $q->execute();
         while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
             $articles[] = new Article($donnees);
@@ -64,5 +65,13 @@ class Article_manager {
     public function setDb(PDO $db)
     {
         $this->_db = $db;
+    }
+
+    public function getopt_auteur($id_article) {
+        $q = $this->_db->prepare('SELECT prevalid_com FROM admin INNER JOIN articles ON admin.id = articles.auteur_id INNER JOIN commentaires ON commentaires.article_id = articles.id WHERE articles.id = :id');
+        $q->bindParam(':id', $id_article, PDO::PARAM_INT);
+        $q->execute();
+        $donnees = $q->fetch(PDO::FETCH_ASSOC);
+        return $option = $donnees['prevalid_com'];
     }
 }

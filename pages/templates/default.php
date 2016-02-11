@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../public/index.php">Accueil</a>
+            <a class="navbar-brand" href="../public/index.php">Tous les poèmes</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
                  <form class="navbar-form navbar-right" action="index.php?p=connexion" method="post">
@@ -52,7 +52,7 @@
                      <div class="form-group">
                          <input type="password" name="pass" placeholder="Password" class="form-control">
                      </div>
-                     <button type="submit" class="btn btn-primary">Espace Admin</button>
+                     <button type="submit" class="btn btn-primary">Connexion</button>
                  </form>
         </div><!--/.navbar-collapse -->
     </div>
@@ -78,18 +78,6 @@
 <script src="../../dist/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-<script>
-    $(function (){
-        $("#pop1").popover({placement:'bottom', trigger: 'focus'});
-        $("#pop2").popover({placement:'bottom', trigger: 'focus'});
-        $("#pop3").popover({placement:'bottom', trigger: 'focus'});
-        $("#pop4").popover({placement:'bottom', trigger: 'focus'});
-        $("#pop5").popover({placement:'bottom', trigger: 'focus'});
-        $("#pop6").popover({placement:'bottom', trigger: 'focus'});
-        $("#pop7").popover({placement:'top', trigger: 'focus'});
-        $("#pop8").popover({placement:'top', trigger: 'focus'});
-        $("#pop9").popover({placement:'top', trigger: 'focus'});
-    });
-</script>
+
 </body>
 </html>

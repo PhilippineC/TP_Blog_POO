@@ -2,8 +2,11 @@
 include_once('../fonction/get_gravatar.php');
 
 /* Vérification de l'id de l'article */
-if(isset($_GET['article'])) {
+if(isset($_GET['id'])) {
     $_GET['id'] = (int)$_GET['id'];
+}
+else {
+    $_GET['id'] = 1;
 }
 
 /* Nouvel objet manager des articles*/
@@ -19,7 +22,6 @@ if (($_GET['id'] > $nbarticles) OR ($_GET['id'] < 1 )) {
 
 /* Récupérer l'article */
 $article = $manager_art->lister_un($_GET['id']);
-/*$article->getcontenu() = nl2br($article->getcontenu());*/
 
 /* Afficher l'article */
 echo '<div class="container">';
@@ -30,7 +32,7 @@ echo '<p>' . $article->getcontenu() . '</p></div><hr>';
 
 <!-- Afficher un formulaire pour enregistrer un commentaire FAIRE UNE CLASSE PR LE FORMULAIRE-->
     <legend>Commentez cet article</legend>
-    <form class="form-horizontal" role="form" method="post" action="traitement_ajoutcomment.php">
+    <form class="form-horizontal" role="form" method="post" action="index.php?p=ajout_com&id_art=<?=$article->getid()?>&opt=<?=$manager_art->getopt_auteur($article->getid())?>">
         <div class="form-group">
             <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
             <div class="col-sm-8">

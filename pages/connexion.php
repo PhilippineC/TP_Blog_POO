@@ -5,6 +5,7 @@
 $db = Database::getPDO();
 
 /* nouvel objet Admin*/
+$_POST['pass'] = sha1($_POST['pass']);
 $membre = new Admin($db, $_POST['email'], $_POST['pass']);
 if($membre->membre_exist($membre->getemail(), $membre->getpass()))
 {
